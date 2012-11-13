@@ -1,6 +1,11 @@
-<h1>Simple Blog</h1>     
-<div class="row"> 
-  <div class="span4 offset8">
+<h1>Simple Blog</h1>
+<div class="row">
+  <div class="span4 offset7">
+        <%= link_to "Title", root_path(:order_by => "title") %>  |
+        <%= link_to 'Newest', root_path(:order_by => "published")%>  |
+        <%= link_to 'Word Count', root_path(:order_by => "word_count")%>
+
+
     <span class="pull-right">
       <%= link_to 'New Article', new_article_path, class: 'btn' %>
     </span>

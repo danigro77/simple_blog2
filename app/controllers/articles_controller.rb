@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
+    @articles = Article.ordered_by(params[:order_by])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -39,8 +39,16 @@ class ArticlesController < ApplicationController
 
   # POST /articles
   # POST /articles.json
+
+  # @article = Article.new(:title => params[:article][:title],
+  #                        :body => params[:article][:body])
+
   def create
-    @article = Article.new(params[:article])
+    @article = Article.new(:title => params[:article][:title],
+                            :body => params[:article][:body])
+
+    # puts "DEBUG:_______________________"
+    #  puts "#{params}"
 
     respond_to do |format|
       if @article.save
