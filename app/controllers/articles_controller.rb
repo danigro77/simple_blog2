@@ -2,7 +2,10 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.ordered_by(params[:order_by])
+    @articles = Article.scoped
+
+    @articles = @articles.limit(params[:limit]) if params[:limit]
+    @articles = @articles.ordered_by(params[:ordered_by]) if params[:ordered_by]
 
     respond_to do |format|
       format.html # index.html.erb

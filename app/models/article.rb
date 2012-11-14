@@ -5,11 +5,9 @@ class Article < ActiveRecord::Base
 
   def self.ordered_by(param)
     case param
-    when 'title'      then   Article.order('title')
-    when 'published'  then   Article.order('created_at DESC')
-    when 'word_count' then   Article.order('length(body) desc')
-    else                     Article.all
+    when 'title'      then   self.order('title')
+    when 'published'  then   self.order('created_at DESC')
+    when 'word_count' then   self.order('length(body) desc')
     end
   end
-
 end
