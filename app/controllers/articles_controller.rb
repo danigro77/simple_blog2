@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
     @articles = Article.scoped
 
     @articles = @articles.limit(params[:limit]) if params[:limit]
-    @articles = @articles.ordered_by(params[:ordered_by]) if params[:ordered_by]
+    @articles = @articles.ordered_by(params[:order_by]) if params[:order_by]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -48,7 +48,8 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(:title => params[:article][:title],
-                            :body => params[:article][:body])
+                           :body => params[:article][:body],
+                           :word_count => count_of_words(params[:article][:body]))
 
     # puts "DEBUG:_______________________"
     #  puts "#{params}"
@@ -91,4 +92,11 @@ class ArticlesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+private
+
+  def count_of_words(param)
+    param.split(" ").length
+  end
+
 end
